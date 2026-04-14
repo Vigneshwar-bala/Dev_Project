@@ -25,4 +25,7 @@ export const getStockQuote = (ticker) =>
 export const getCryptoQuote = (symbol) =>
   api.get(`/market/crypto/${symbol}`).then(r => r.data.data);
 
+export const searchTickers = (query) =>
+  api.get(`/market/search`, { params: { q: query } }).then(r => r.data.data);
+
 export default api;

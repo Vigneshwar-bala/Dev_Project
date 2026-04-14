@@ -4,3 +4,4 @@ dist/
 .DS_Store
 *.log
 .vite/
+*.technical_explanation_for_beginners.md
