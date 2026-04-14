@@ -186,3 +186,4 @@ StockY/
 ---
 
 *Built with ❤️ using MERN Stack + Gemini AI — StockY Terminal v1.0*
+A project by Vigneshwar balakumar for Full stack pep
