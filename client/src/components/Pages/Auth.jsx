@@ -13,7 +13,8 @@ export default function Auth({ setTokens }) {
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
       const payload = isLogin ? { email: formData.email, password: formData.password } : formData;
-      const res = await axios.post(`http://localhost:5000${endpoint}`, payload);
+      const baseURL = import.meta.env.PROD ? import.meta.env.VITE_API_URL : 'http://localhost:5000';
+      const res = await axios.post(`${baseURL}${endpoint}`, payload);
 
       if (res.data.success) {
         toast.success(isLogin ? 'Logged in successfully' : 'Registered successfully');
