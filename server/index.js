@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://lemon-tree-03abff200.1.azurestaticapps.net'], credentials: true }));
 app.use(express.json());
 
 // ─── Database Handshake ───────────────────────────────────────────────────────
@@ -41,12 +41,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal server error' });
 });
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`\n🚀 StockY Server Running`);
-    console.log(`📡 API: http://localhost:${PORT}/api`);
-    console.log(`❤️  Health: http://localhost:${PORT}/api/health\n`);
-  });
-}
-
-export default app;
+app.listen(PORT, () => {
+  console.log(`\n🚀 StockY Server Running`);
+  console.log(`📡 API: http://localhost:${PORT}/api`);
+  console.log(`❤️  Health: http://localhost:${PORT}/api/health\n`);
+});
