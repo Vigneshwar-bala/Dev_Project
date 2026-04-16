@@ -9,10 +9,13 @@ const DEFAULT_STATE = {
   bias: 'Bullish',
   volatility: 'Low',
   liquidity: 'Deep',
-  insights: [],
+  stockBought: '',
+  whyBought: '',
+  profitMade: '',
   whaleName: '',
   ticker: '',
   fromCache: false,
+  isFallback: false,
 };
 
 export default function EnginePanel({ activeWhale }) {
@@ -38,13 +41,17 @@ export default function EnginePanel({ activeWhale }) {
           bias: data.bias,
           volatility: data.volatility,
           liquidity: data.liquidity,
-          insights: data.insights || [],
+          stockBought: data.stockBought || '',
+          whyBought: data.whyBought || '',
+          profitMade: data.profitMade || '',
           whaleName: activeWhale.name,
           ticker: activeWhale.ticker,
           fromCache: data.fromCache,
+          isFallback: data.isFallback || false,
         });
         if (data.fromCache) toast.success('⚡ Loaded from insight cache');
-        else toast.success('🤖 Gemini analysis complete');
+        else if (data.isFallback) toast('⚠️ Gemini API limit — showing fallback data', { icon: '⚠️' });
+        else toast.success('🤖 Whale intelligence loaded');
       })
       .catch((err) => {
         if (!cancelled) {
@@ -95,11 +102,14 @@ export default function EnginePanel({ activeWhale }) {
         style={{ scrollbarWidth: 'none', maxHeight: '260px' }}
       >
         <LogicSummary
-          insights={engineState.insights}
+          stockBought={engineState.stockBought}
+          whyBought={engineState.whyBought}
+          profitMade={engineState.profitMade}
           whaleName={engineState.whaleName}
           ticker={engineState.ticker}
           loading={analyzing}
           fromCache={engineState.fromCache}
+          isFallback={engineState.isFallback}
         />
       </div>
     </section>

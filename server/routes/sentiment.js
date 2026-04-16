@@ -19,13 +19,24 @@ router.post('/analyze', async (req, res) => {
 
 // GET /api/sentiment/cache/:key
 router.get('/cache/:key', async (req, res) => {
-  // Try MongoDB
   try {
     const { default: InsightCache } = await import('../models/InsightCache.js');
     const cached = await InsightCache.findOne({ cacheKey: req.params.key });
     return res.json({ success: true, exists: !!cached, data: cached || null });
   } catch {
     return res.json({ success: true, exists: false });
+  }
+});
+
+// DELETE /api/sentiment/cache/purge — wipe ALL cached records (use after schema change)
+router.delete('/cache/purge', async (req, res) => {
+  try {
+    const { default: InsightCache } = await import('../models/InsightCache.js');
+    const result = await InsightCache.deleteMany({});
+    console.log(`🗑️  Purged ${result.deletedCount} stale cache records`);
+    return res.json({ success: true, deleted: result.deletedCount });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
   }
 });
 

@@ -8,16 +8,26 @@ const insightCacheSchema = new mongoose.Schema({
     index: true,
   },
   whaleName: { type: String, required: true },
-  ticker: { type: String, required: true, uppercase: true },
-  score: { type: Number, min: 0, max: 100, required: true },
-  bias: { type: String, enum: ['Bullish', 'Bearish', 'Neutral'], required: true },
-  volatility: { type: String, enum: ['Low', 'Medium', 'High'], required: true },
+  ticker:    { type: String, required: true, uppercase: true },
+  date:      { type: String, required: true }, // YYYY-MM-DD — for daily grouping
+
+  // Sentiment gauge fields
+  score:     { type: Number, min: 0, max: 100, required: true },
+  bias:      { type: String, enum: ['Bullish', 'Bearish', 'Neutral'], required: true },
+  volatility:{ type: String, enum: ['Low', 'Medium', 'High'], required: true },
   liquidity: { type: String, enum: ['Deep', 'Moderate', 'Thin'], required: true },
-  insights: [{ type: String }],
+
+  // ── The 3 factual insight fields ─────────────────────────────────────────
+  stockBought: { type: String, required: true }, // WHAT they bought
+  whyBought:   { type: String, required: true }, // WHY they bought it
+  profitMade:  { type: String, required: true }, // WHAT profit they made
+
+  isFallback: { type: Boolean, default: false }, // true = Gemini was unavailable
+
   createdAt: {
     type: Date,
     default: Date.now,
-    // TTL index: auto-delete after 24 hours to keep Gemini API usage minimal
+    // TTL index: MongoDB auto-deletes this document after 24 hours
     expires: 86400,
   },
 });
