@@ -30,16 +30,16 @@ StockY is not just a dashboard — it is a demonstration of **industrial-standar
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  STOCKY TERMINAL                    🔔  💼  ⚙️   [S]            │
+│  STOCKY TERMINAL                    🔔  💼  ⚙️   [S]           │
 ├──────────┬──────────────────────────────────┬───────────────────┤
 │  WHALE   │                                  │  GLOBAL           │
 │  TRACKER │     CORRELATION ENGINE           │  WATCHLIST        │
 │  (20%)   │          (55%)                   │  (25%)            │
 │          │                                  │                   │
 │ Buffett  │   ┌──── Sentiment Gauge ────┐    │  TSLA  $184  -1%  │
-│ Pelosi   │   │         76             │    │  NVDA  $924  +5%  │
-│ Saylor   │   │       BULLISH          │    │  AAPL  $173  +0%  │
-│ Wood     │   └────────────────────────┘    │  BTC  $68K  +3%   │
+│ Pelosi   │   │         76             │     │  NVDA  $924  +5%  │
+│ Saylor   │   │       BULLISH          │     │  AAPL  $173  +0%  │
+│ Wood     │   └────────────────────────┘     │  BTC  $68K  +3%   │
 │ Dalio    │                                  │  AMZN  $178  -1%  │
 │          │   01. Insight from Gemini AI     │                   │
 │          │   02. Market correlation logic   │  [Add Ticker...]  │
@@ -186,3 +186,4 @@ StockY/
 ---
 
 *Built with ❤️ using MERN Stack + Gemini AI — StockY Terminal v1.0*
+A project by Vigneshwar Balakumae for Full Stack PEP

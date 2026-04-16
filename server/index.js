@@ -5,6 +5,7 @@ import connectDB from './config/db.js';
 import watchlistRoutes from './routes/watchlist.js';
 import sentimentRoutes from './routes/sentiment.js';
 import marketRoutes from './routes/market.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ connectDB();
 app.use('/api/watchlist', watchlistRoutes);
 app.use('/api/sentiment', sentimentRoutes);
 app.use('/api/market', marketRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -39,8 +41,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 StockY Server Running`);
-  console.log(`📡 API: http://localhost:${PORT}/api`);
-  console.log(`❤️  Health: http://localhost:${PORT}/api/health\n`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 StockY Server Running`);
+    console.log(`📡 API: http://localhost:${PORT}/api`);
+    console.log(`❤️  Health: http://localhost:${PORT}/api/health\n`);
+  });
+}
+
+export default app;

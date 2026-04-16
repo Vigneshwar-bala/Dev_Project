@@ -19,8 +19,12 @@ const TICKERS = [
 ];
 
 export default function Navbar() {
-  const [activeDropdown, setActiveDropdown] = useState(null); // 'notif', 'wallet', 'settings'
+  const [activeDropdown, setActiveDropdown] = useState(null); // 'notif', 'wallet', 'settings', 'profile'
   const navRef = useRef(null);
+
+  const userStr = localStorage.getItem('stocky_user');
+  const user = userStr ? JSON.parse(userStr) : {};
+  const userInitial = user.name ? user.name.charAt(0).toUpperCase() : 'U';
 
   // Close dropdown if clicking outside
   useEffect(() => {
@@ -154,10 +158,37 @@ export default function Navbar() {
                 </div>
               </div>
             )}
+
+            {activeDropdown === 'profile' && (
+              <div className="absolute top-12 right-0 w-64 glass-panel rounded-2xl shadow-xl border border-outline-variant/20 p-4 animate-fade-in origin-top-right flex flex-col gap-3 z-50">
+                <div className="flex flex-col items-center mb-2 border-b border-outline-variant/10 pb-4">
+                  <div className="w-14 h-14 rounded-full bg-primary-fixed/20 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold text-2xl select-none mb-3 shadow-[0_0_15px_rgba(38,254,220,0.2)]">
+                    {userInitial}
+                  </div>
+                  <h3 className="text-sm font-bold text-on-surface tracking-wide">{user.name || 'Terminal User'}</h3>
+                  <p className="text-[10px] text-on-surface-variant font-mono mt-1">{user.email || 'user@stocky.ai'}</p>
+                </div>
+                <button 
+                  onClick={() => {
+                    localStorage.removeItem('stocky_token');
+                    localStorage.removeItem('stocky_user');
+                    window.location.reload();
+                  }} 
+                  className="flex items-center justify-center gap-2 text-xs font-semibold text-error hover:text-red-400 hover:bg-error/10 transition-colors w-full text-center p-2.5 rounded-lg border border-error/10"
+                >
+                  <span className="material-symbols-outlined text-[16px]">logout</span>
+                  Disconnect Session
+                </button>
+              </div>
+            )}
           </div>
 
-          <div className="w-8 h-8 rounded-full bg-primary-fixed/20 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold text-xs select-none">
-            S
+          <div 
+            onClick={() => toggle('profile')}
+            className="w-10 h-10 rounded-full bg-primary-fixed/10 border border-primary-fixed/30 flex items-center justify-center text-primary-fixed font-bold text-sm select-none cursor-pointer hover:bg-primary-fixed/20 transition-colors relative"
+          >
+            {userInitial}
+            <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#26fedc] rounded-full border-2 border-surface-container-lowest" />
           </div>
         </div>
       </header>

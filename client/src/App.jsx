@@ -8,9 +8,35 @@ import Markets from './components/Pages/Markets';
 import Insights from './components/Pages/Insights';
 import AiSettings from './components/Pages/AiSettings';
 import WatchlistPage from './components/Pages/WatchlistPage';
+import Auth from './components/Pages/Auth';
 
 export default function App() {
   const [activeWhale, setActiveWhale] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('stocky_token') || null);
+
+  const toastOptions = {
+    style: {
+      background: '#1e2023',
+      color: '#e2e2e6',
+      border: '1px solid rgba(58,74,70,0.2)',
+      borderRadius: '12px',
+      fontSize: '12px',
+      fontFamily: 'Inter, sans-serif',
+    },
+    success: { iconTheme: { primary: '#26fedc', secondary: '#111316' } },
+    error: { iconTheme: { primary: '#ffb4ab', secondary: '#111316' } },
+  };
+
+  if (!token) {
+    return (
+      <Router>
+        <div className="dark bg-background text-on-surface font-body h-screen flex flex-col overflow-hidden">
+          <Toaster position="top-center" toastOptions={toastOptions} />
+          <Auth setTokens={setToken} />
+        </div>
+      </Router>
+    );
+  }
 
   return (
     <Router>
@@ -18,18 +44,7 @@ export default function App() {
         {/* Toast notifications */}
         <Toaster
           position="top-center"
-          toastOptions={{
-            style: {
-              background: '#1e2023',
-              color: '#e2e2e6',
-              border: '1px solid rgba(58,74,70,0.2)',
-              borderRadius: '12px',
-              fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
-            },
-            success: { iconTheme: { primary: '#26fedc', secondary: '#111316' } },
-            error: { iconTheme: { primary: '#ffb4ab', secondary: '#111316' } },
-          }}
+          toastOptions={toastOptions}
         />
 
         {/* Navigation + ticker bar */}
