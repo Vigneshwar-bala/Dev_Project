@@ -1,0 +1,12 @@
+{
+  "name": "stocky",
+  "version": "1.0.0",
+  "description": "Root package.json for Azure App Service deployment",
+  "engines": {
+    "node": ">=18.x"
+  },
+  "scripts": {
+    "postinstall": "cd server && npm install",
+    "start": "cd server && node index.js"
+  }
+}
