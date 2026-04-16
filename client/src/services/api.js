@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = import.meta.env.PROD 
-  ? 'https://stocky-backend.azurewebsites.net/api' 
+  ? 'https://stocky-backend-aef8ezbxbsdcdhfv.eastasia-01.azurewebsites.net/api' 
   : '/api';
 
 const api = axios.create({
