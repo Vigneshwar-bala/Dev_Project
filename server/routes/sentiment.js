@@ -1,5 +1,5 @@
 import express from 'express';
-import { analyzeWhaleInsight } from '../services/geminiService.js';
+import { analyzeWhaleInsight } from '../services/openrouterService.js';
 
 const router = express.Router();
 

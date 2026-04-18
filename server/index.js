@@ -6,6 +6,7 @@ import watchlistRoutes from './routes/watchlist.js';
 import sentimentRoutes from './routes/sentiment.js';
 import marketRoutes from './routes/market.js';
 import authRoutes from './routes/auth.js';
+import configRoutes from './routes/config.js';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use('/api/watchlist', watchlistRoutes);
 app.use('/api/sentiment', sentimentRoutes);
 app.use('/api/market', marketRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/config', configRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

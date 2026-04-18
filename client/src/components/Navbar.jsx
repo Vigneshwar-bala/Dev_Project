@@ -54,7 +54,7 @@ export default function Navbar() {
           <nav className="hidden md:flex gap-6 items-center">
             <NavLink to="/" className={({ isActive }) => `text-xs uppercase tracking-widest cursor-pointer active:scale-95 transition-colors duration-300 ${isActive ? 'text-primary-fixed font-medium' : 'text-slate-400 hover:text-primary'}`}>Terminal</NavLink>
             <NavLink to="/markets" className={({ isActive }) => `text-xs uppercase tracking-widest cursor-pointer active:scale-95 transition-colors duration-300 ${isActive ? 'text-primary-fixed font-medium' : 'text-slate-400 hover:text-primary'}`}>Markets</NavLink>
-            <NavLink to="/insights" className={({ isActive }) => `text-xs uppercase tracking-widest cursor-pointer active:scale-95 transition-colors duration-300 ${isActive ? 'text-primary-fixed font-medium' : 'text-slate-400 hover:text-primary'}`}>Insights</NavLink>
+            <NavLink to="/ai" className={({ isActive }) => `text-xs uppercase tracking-widest cursor-pointer active:scale-95 transition-colors duration-300 ${isActive ? 'text-primary-fixed font-medium' : 'text-slate-400 hover:text-primary'}`}>AI Config</NavLink>
           </nav>
         </div>
 

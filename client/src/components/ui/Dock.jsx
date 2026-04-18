@@ -3,10 +3,9 @@ import { NavLink } from 'react-router-dom';
 const DOCK_ITEMS = [
   { icon: 'dashboard', to: '/', tooltip: 'Terminal' },
   { icon: 'query_stats', to: '/markets', tooltip: 'Markets' },
-  { icon: 'bubble_chart', to: '/insights', tooltip: 'Insights' },
   { divider: true },
-  { icon: 'psychology', to: '/ai', tooltip: 'AI Configuration (Soon)' },
-  { icon: 'visibility', to: '/watchlist', tooltip: 'Watchlist (Soon)' },
+  { icon: 'psychology', to: '/ai', tooltip: 'AI Config' },
+  { icon: 'visibility', to: '/watchlist', tooltip: 'Watchlist' },
 ];
 
 export default function Dock() {

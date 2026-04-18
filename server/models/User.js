@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  aiConfig: {
+    scoreThreshold: { type: Number, default: 70 },
+    volatilityFilter: { type: String, default: 'Medium', enum: ['Low', 'Medium', 'High'] },
+    updatedAt: Date
   }
 }, { timestamps: true });
 

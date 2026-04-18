@@ -5,10 +5,10 @@ import Navbar from './components/Navbar';
 import Dock from './components/ui/Dock';
 import Terminal from './components/Pages/Terminal';
 import Markets from './components/Pages/Markets';
-import Insights from './components/Pages/Insights';
 import AiSettings from './components/Pages/AiSettings';
 import WatchlistPage from './components/Pages/WatchlistPage';
 import Auth from './components/Pages/Auth';
+
 
 export default function App() {
   const [activeWhale, setActiveWhale] = useState(null);
@@ -57,7 +57,6 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Terminal activeWhale={activeWhale} setActiveWhale={setActiveWhale} />} />
             <Route path="/markets" element={<Markets />} />
-            <Route path="/insights" element={<Insights />} />
             <Route path="/ai" element={<AiSettings />} />
             <Route path="/watchlist" element={<WatchlistPage />} />
           </Routes>
