@@ -9,7 +9,7 @@ router.use((req, res, next) => {
   if (!token) return res.status(401).json({ success: false, message: 'No token' });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key_123_fallback');
     req.userId = decoded.id;
     next();
   } catch {

@@ -13,7 +13,11 @@ export default function AiSettings() {
 
   useEffect(() => {
     // Load saved config
-    api.get('/config').then(r => setConfig(r.data)).catch(() => {});
+    api.get('/config').then(r => {
+      if (r.data?.data) {
+        setConfig(prev => ({ ...prev, ...r.data.data }));
+      }
+    }).catch(() => {});
   }, []);
 
   const handleSave = async () => {
