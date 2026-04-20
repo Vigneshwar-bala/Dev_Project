@@ -1,3 +1,5 @@
+import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
+
 const SECTION_META = [
   {
     key: 'stockBought',
@@ -29,6 +31,7 @@ export default function LogicSummary({
   stockBought = '',
   whyBought = '',
   profitMade = '',
+  profitGraph = [],
   whaleName = '',
   ticker = '',
   loading = false,
@@ -66,6 +69,7 @@ export default function LogicSummary({
   }
 
   const data = { stockBought, whyBought, profitMade };
+  const chartData = profitGraph.map((val, i) => ({ month: `M${i+1}`, value: val }));
 
   return (
     <div className="space-y-1 animate-slide-up">
@@ -126,6 +130,16 @@ export default function LogicSummary({
             <p className="text-[12.5px] text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">
               {data[section.key]}
             </p>
+            {section.key === 'profitMade' && profitGraph.length > 0 && (
+              <div className="w-full mt-2" style={{ height: '64px', minWidth: '0' }}>
+                <ResponsiveContainer width="99%" height="100%">
+                  <LineChart data={chartData}>
+                    <YAxis domain={['auto', 'auto']} hide />
+                    <Line type="monotone" dataKey="value" stroke="#fbbf24" strokeWidth={2} dot={{ r: 2, fill: '#fbbf24' }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            )}
           </div>
         ))}
       </div>

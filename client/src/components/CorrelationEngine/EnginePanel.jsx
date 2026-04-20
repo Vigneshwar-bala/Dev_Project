@@ -12,6 +12,7 @@ const DEFAULT_STATE = {
   stockBought: '',
   whyBought: '',
   profitMade: '',
+  profitGraph: [],
   whaleName: '',
   ticker: '',
   fromCache: false,
@@ -44,6 +45,7 @@ export default function EnginePanel({ activeWhale }) {
           stockBought: data.stockBought || '',
           whyBought: data.whyBought || '',
           profitMade: data.profitMade || '',
+          profitGraph: data.profitGraph || [],
           whaleName: activeWhale.name,
           ticker: activeWhale.ticker,
           fromCache: data.fromCache,
@@ -105,6 +107,7 @@ export default function EnginePanel({ activeWhale }) {
           stockBought={engineState.stockBought}
           whyBought={engineState.whyBought}
           profitMade={engineState.profitMade}
+          profitGraph={engineState.profitGraph}
           whaleName={engineState.whaleName}
           ticker={engineState.ticker}
           loading={analyzing}

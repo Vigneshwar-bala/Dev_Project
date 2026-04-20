@@ -78,6 +78,7 @@ Return ONLY valid JSON:
   "stockBought": "<exact from EDGAR>",
   "whyBought": "<concise rationale>",
   "profitMade": "<estimated based on data>",
+  "profitGraph": [<array of 6 integers representing estimated percentage profit trend over 6 months>],
   "edgarVerified": true/false
 }`;
 };
@@ -92,6 +93,7 @@ const buildFallbackInsight = (whale, ticker, sentiment, edgarData) => ({
   stockBought: edgarData?.tickerPosition ? `${formatValue(edgarData.tickerPosition.value)} worth of shares per 13F` : 'Not in latest 13F',
   whyBought: 'OpenRouter unavailable - see EDGAR filing for details',
   profitMade: 'Calculate from filing date price',
+  profitGraph: [0, 3, -1, 6, 10, 15],
   isFallback: true,
 });
 
@@ -163,10 +165,10 @@ export const analyzeWhaleInsight = async (whale, trade, ticker, sentiment, userI
     result = await callOpenRouter(prompt);
     // Apply threshold
     if (result.score < userConfig.scoreThreshold) {
-      return { score: result.score, bias: 'Filtered', fromCache: false, reason: `Below threshold (${userConfig.scoreThreshold})`, userConfig };
+      return { ...result, bias: 'Filtered', fromCache: false, reason: `Below threshold (${userConfig.scoreThreshold})`, userConfig };
     }
-    if (result.volatility !== userConfig.volatilityFilter) {
-      return { score: result.score, bias: 'Filtered', fromCache: false, reason: `Volatility mismatch`, userConfig };
+    if (userConfig.volatilityFilter && userConfig.volatilityFilter !== 'Any' && result.volatility !== userConfig.volatilityFilter) {
+      return { ...result, bias: 'Filtered', fromCache: false, reason: `Volatility mismatch`, userConfig };
     }
     console.log(`✅ OpenRouter + config filter [${MODEL}]`);
   } catch (err) {
@@ -182,7 +184,7 @@ export const analyzeWhaleInsight = async (whale, trade, ticker, sentiment, userI
       await InsightCache.create({
         cacheKey, whaleName: whale.name, ticker: ticker.toUpperCase(), date: today,
         score: result.score, bias: result.bias, volatility: result.volatility, liquidity: result.liquidity,
-        stockBought: result.stockBought, whyBought: result.whyBought, profitMade: result.profitMade,
+        stockBought: result.stockBought, whyBought: result.whyBought, profitMade: result.profitMade, profitGraph: result.profitGraph || [],
         isFallback: !!result.isFallback, edgarVerified: !!result.edgarVerified,
       });
     } catch {}

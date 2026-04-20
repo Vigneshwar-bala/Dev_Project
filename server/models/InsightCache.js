@@ -21,6 +21,7 @@ const insightCacheSchema = new mongoose.Schema({
   stockBought: { type: String, required: true }, // WHAT they bought
   whyBought:   { type: String, required: true }, // WHY they bought it
   profitMade:  { type: String, required: true }, // WHAT profit they made
+  profitGraph: { type: [Number], default: [] },  // Array of 6 data points for the profit graph over the last 6 months
 
   isFallback: { type: Boolean, default: false }, // true = Gemini was unavailable
   edgarVerified: { type: Boolean, default: false }, // true = real SEC 13F data was used

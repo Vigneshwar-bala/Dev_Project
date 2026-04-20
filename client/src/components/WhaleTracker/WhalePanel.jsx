@@ -15,15 +15,24 @@ const INVESTOR_SUGGESTIONS = [
   "Retail Sentiment (Reddit)"
 ];
 
-const TICKER_SUGGESTIONS = [
-  "AAPL", "NVDA", "TSLA", "MSFT", "AMZN", 
-  "BTC", "ETH", "DOGE",
-  "RELIANCE", "TCS", "HDFCBANK", "INFY", "M&M"
-];
+const INVESTOR_PORTFOLIOS = {
+  "Warren Buffett": ["AAPL", "OXY", "BAC", "AXP", "CVX"],
+  "Elon Musk": ["TSLA", "DOGE", "BTC"],
+  "Michael Saylor": ["BTC", "MSTR"],
+  "Nancy Pelosi": ["NVDA", "MSFT", "AAPL", "CRWD", "PANW"],
+  "Cathie Wood": ["TSLA", "RBLX", "COIN", "U", "ZM"],
+  "Rakesh Jhunjhunwala": ["RELIANCE", "TITAN", "TCHM", "STAR"],
+  "Radhakishan Damani": ["DMART", "HDFCBANK", "INFY"],
+  "Ray Dalio": ["IVV", "IEMG", "PG", "JNJ"],
+  "Bill Ackman": ["CMG", "QSR", "HLT", "GOOGL"],
+  "Retail Sentiment (Reddit)": ["GME", "AMC", "BB", "NOK", "PLTR"]
+};
 
 export default function WhalePanel({ activeWhale, onSelectWhale }) {
   const [customInvestor, setCustomInvestor] = useState('');
   const [customTicker, setCustomTicker] = useState('');
+
+  const tickerOptions = customInvestor ? (INVESTOR_PORTFOLIOS[customInvestor] || []) : [];
 
   const handleCustomAnalyze = (e) => {
     e.preventDefault();
@@ -74,7 +83,10 @@ export default function WhalePanel({ activeWhale, onSelectWhale }) {
         <div className="flex flex-col gap-2 relative z-10">
           <select
             value={customInvestor}
-            onChange={(e) => setCustomInvestor(e.target.value)}
+            onChange={(e) => {
+              setCustomInvestor(e.target.value);
+              setCustomTicker(''); // reset ticker when investor changes
+            }}
             className="w-full bg-surface-container/50 border border-outline-variant/10 rounded-lg px-3 py-1.5 text-[11px] text-on-surface focus:outline-none focus:border-secondary/50 transition-colors"
           >
             <option value="" disabled hidden>Select an Investor...</option>
@@ -86,10 +98,11 @@ export default function WhalePanel({ activeWhale, onSelectWhale }) {
           <select
             value={customTicker}
             onChange={(e) => setCustomTicker(e.target.value.toUpperCase())}
-            className="w-full bg-surface-container/50 border border-outline-variant/10 rounded-lg px-3 py-1.5 text-[11px] font-mono text-on-surface uppercase focus:outline-none focus:border-secondary/50 transition-colors"
+            disabled={!customInvestor}
+            className="w-full bg-surface-container/50 border border-outline-variant/10 rounded-lg px-3 py-1.5 text-[11px] font-mono text-on-surface uppercase focus:outline-none focus:border-secondary/50 transition-colors disabled:opacity-50"
           >
             <option value="" disabled hidden>Select Target Asset...</option>
-            {TICKER_SUGGESTIONS.map(tic => (
+            {tickerOptions.map(tic => (
               <option key={tic} value={tic} className="bg-surface-container-high">{tic}</option>
             ))}
           </select>

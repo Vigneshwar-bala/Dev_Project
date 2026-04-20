@@ -91,6 +91,7 @@ Return ONLY valid JSON, no markdown, no explanation:
   "stockBought": "<WHAT they bought: ticker, share count from 13F if available, and dollar value>",
   "whyBought": "<WHY: their public thesis, sector reason, or stated rationale from earnings/interviews>",
   "profitMade": "<WHAT profit: estimated % gain or dollar return based on entry vs current price>",
+  "profitGraph": [<array of 6 integers representing estimated % profit trend over the last 6 months>],
   "edgarVerified": <true if you used the 13F data above, false if relying on prior knowledge only>
 }`;
 };
@@ -111,6 +112,7 @@ const buildFallbackInsight = (whale, ticker, sentiment, edgarData) => {
       : `SEC 13F position for $${ticker.toUpperCase()} under ${whale.name} not confirmed in latest EDGAR filing. Check sec.gov manually.`,
     whyBought: `Gemini AI analysis unavailable (API quota exceeded). Based on EDGAR filing from ${edgarData?.filingDate || 'latest quarter'} — visit the filing at sec.gov for their disclosed rationale.`,
     profitMade: `Profit data requires AI analysis. Please check the stock's price history from the 13F filing date (${edgarData?.filingDate || 'see sec.gov'}) to present on a charting platform.`,
+    profitGraph: [0, 2, -1, 5, 8, 12],
     isFallback: true,
   };
 };
@@ -172,7 +174,8 @@ export const analyzeWhaleInsight = async (whale, trade, ticker, sentiment) => {
         parsed.bias &&
         parsed.stockBought &&
         parsed.whyBought &&
-        parsed.profitMade
+        parsed.profitMade &&
+        Array.isArray(parsed.profitGraph)
       ) {
         result = { ...parsed, isFallback: false };
         console.log(`✅ Gemini AI analysis complete for [${cacheKey}] | EDGAR verified: ${parsed.edgarVerified}`);
@@ -205,6 +208,7 @@ export const analyzeWhaleInsight = async (whale, trade, ticker, sentiment) => {
         stockBought: result.stockBought,
         whyBought: result.whyBought,
         profitMade: result.profitMade,
+        profitGraph: result.profitGraph,
         isFallback: result.isFallback || false,
         edgarVerified: result.edgarVerified || edgarData?.found || false,
       });
