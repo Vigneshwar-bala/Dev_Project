@@ -7,7 +7,7 @@
 
 * { box-sizing: border-box; }
 
-:root { color-scheme: dark; }
+:root { color-scheme: light; }
 
 body {
   @apply bg-background text-on-surface font-body overflow-hidden;
@@ -31,10 +31,17 @@ body {
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
 .glass-panel {
-  background: rgba(18, 20, 23, 0.55);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glass-panel {
+  background: rgba(26, 28, 31, 0.55);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(58, 74, 70, 0.18);
+  border: 1px solid rgba(58, 74, 70, 0.5);
+  box-shadow: none;
 }
 
 .ticker-scroll {
@@ -42,10 +49,18 @@ body {
 }
 
 .glow-primary {
-  box-shadow: 0 0 20px rgba(0, 245, 212, 0.15);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.15);
 }
 
 .glow-text {
+  text-shadow: none;
+}
+
+.dark .glow-primary {
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.15);
+}
+
+.dark .glow-text {
   text-shadow: 0 0 20px rgba(0, 245, 212, 0.4);
 }
 

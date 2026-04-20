@@ -81,7 +81,7 @@ export default function EnginePanel({ activeWhale }) {
       {/*   shrink-0 so it never compresses, always fully visible  */}
       <div className="glass-panel rounded-3xl px-6 pt-6 pb-4 flex flex-col items-center relative shrink-0">
         {/* background shimmer */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none rounded-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-fixed/5 dark:from-[#26fedc]/5 to-transparent pointer-events-none rounded-3xl" />
 
         <SentimentGauge
           score={engineState.score}
@@ -92,7 +92,7 @@ export default function EnginePanel({ activeWhale }) {
 
         {/* Idle hint when no whale selected yet */}
         {!activeWhale && (
-          <p className="text-on-surface-variant/30 text-[10px] uppercase tracking-[0.3em] animate-pulse-slow mt-2">
+          <p className="text-on-surface-variant/30 dark:text-[#b9cac4]/30 text-[10px] uppercase tracking-[0.3em] animate-pulse-slow mt-2">
             ← Select a whale to activate Gemini analysis
           </p>
         )}

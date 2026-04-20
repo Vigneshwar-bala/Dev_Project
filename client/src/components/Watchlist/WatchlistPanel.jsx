@@ -9,12 +9,12 @@ export default function WatchlistPanel() {
   const totalNegative = watchlist.length - totalPositive;
 
   return (
-    <aside className="w-1/4 glass-panel rounded-3xl flex flex-col overflow-hidden">
+    <aside className="w-full h-full glass-panel rounded-3xl flex flex-col overflow-hidden pb-1">
       {/* Header */}
-      <div className="p-5 border-b border-outline-variant/10 shrink-0">
+      <div className="p-5 border-b border-outline-variant/10 dark:border-[#3a4a46]/50 shrink-0">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-xs font-bold tracking-widest uppercase text-on-surface">
+            <h2 className="text-xs font-bold tracking-widest uppercase text-on-surface dark:text-[#e2e2e6]">
               Global Watchlist
             </h2>
             <p className="text-[9px] text-on-surface-variant mt-0.5">
@@ -39,14 +39,14 @@ export default function WatchlistPanel() {
           <div className="space-y-1 p-2 animate-pulse">
             {[1, 2, 3, 4, 5].map(i => (
               <div key={i} className="flex items-center gap-3 p-3">
-                <div className="w-10 h-10 rounded-xl bg-surface-container-high" />
+                <div className="w-10 h-10 rounded-xl bg-surface-container-high dark:bg-[#333538]" />
                 <div className="flex-1 space-y-1.5">
-                  <div className="h-2.5 bg-surface-container-high rounded w-24" />
-                  <div className="h-2 bg-surface-container-high rounded w-16" />
+                  <div className="h-2.5 bg-surface-container-high dark:bg-[#333538] rounded w-24" />
+                  <div className="h-2 bg-surface-container-high dark:bg-[#333538] rounded w-16" />
                 </div>
                 <div className="space-y-1.5 text-right">
-                  <div className="h-2.5 bg-surface-container-high rounded w-14 ml-auto" />
-                  <div className="h-2 bg-surface-container-high rounded w-10 ml-auto" />
+                  <div className="h-2.5 bg-surface-container-high dark:bg-[#333538] rounded w-14 ml-auto" />
+                  <div className="h-2 bg-surface-container-high dark:bg-[#333538] rounded w-10 ml-auto" />
                 </div>
               </div>
             ))}
@@ -66,7 +66,7 @@ export default function WatchlistPanel() {
       </div>
 
       {/* Footer */}
-      <div className="p-3 border-t border-outline-variant/10 shrink-0">
+      <div className="p-3 border-t border-outline-variant/10 dark:border-[#3a4a46]/50 shrink-0">
         <p className="text-[9px] text-on-surface-variant/30 text-center uppercase tracking-widest">
           Synced with MongoDB Atlas
         </p>

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Dock from './components/ui/Dock';
+import TopHeader from './components/TopHeader';
 import Terminal from './components/Pages/Terminal';
 import Markets from './components/Pages/Markets';
 import AiSettings from './components/Pages/AiSettings';
@@ -11,26 +11,36 @@ import Auth from './components/Pages/Auth';
 
 
 export default function App() {
-  const [activeWhale, setActiveWhale] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('stocky_token') || null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [themeMode, setThemeMode] = useState(() => localStorage.getItem('stocky_theme') || 'light');
+  const userStr = localStorage.getItem('stocky_user');
+  const user = userStr ? JSON.parse(userStr) : {};
+
+  useEffect(() => {
+    localStorage.setItem('stocky_theme', themeMode);
+    if (themeMode === 'dark') document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+  }, [themeMode]);
 
   const toastOptions = {
     style: {
-      background: '#1e2023',
-      color: '#e2e2e6',
-      border: '1px solid rgba(58,74,70,0.2)',
+      background: '#ffffff',
+      color: '#111827',
+      border: '1px solid #e5e7eb',
       borderRadius: '12px',
       fontSize: '12px',
       fontFamily: 'Inter, sans-serif',
+      boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
     },
-    success: { iconTheme: { primary: '#26fedc', secondary: '#111316' } },
-    error: { iconTheme: { primary: '#ffb4ab', secondary: '#111316' } },
+    success: { iconTheme: { primary: '#2563eb', secondary: '#ffffff' } },
+    error: { iconTheme: { primary: '#ef4444', secondary: '#ffffff' } },
   };
 
   if (!token) {
     return (
       <Router>
-        <div className="dark bg-background text-on-surface font-body h-screen flex flex-col overflow-hidden">
+        <div className="bg-background text-on-surface dark:bg-[#111316] dark:text-[#e2e2e6] font-body h-screen flex flex-col overflow-hidden">
           <Toaster position="top-center" toastOptions={toastOptions} />
           <Auth setTokens={setToken} />
         </div>
@@ -40,30 +50,33 @@ export default function App() {
 
   return (
     <Router>
-      <div className="dark bg-background text-on-surface font-body h-screen flex flex-col overflow-hidden">
-        {/* Toast notifications */}
-        <Toaster
-          position="top-center"
-          toastOptions={toastOptions}
-        />
+      <div className="bg-background text-on-surface dark:bg-[#111316] dark:text-[#e2e2e6] font-body h-screen w-screen flex overflow-hidden">
+        <Toaster position="top-center" toastOptions={toastOptions} />
 
-        {/* Navigation + ticker bar */}
-        <Navbar />
+        {/* Overlay for mobile sidebar */}
+        {sidebarOpen && (
+          <div 
+            className="fixed inset-0 bg-black/20 z-40 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
 
-        {/* ── Main Routing Region ─────────────────────────── */}
-        {/* mt-[88px] = 64px (navbar) + 24px (ticker) */}
-        {/* min-h-0 is the key fix: allows flex children to have overflow-y-auto */}
-        <main className="flex-1 mt-[88px] flex overflow-hidden p-4 gap-4 pb-28 min-h-0">
-          <Routes>
-            <Route path="/" element={<Terminal activeWhale={activeWhale} setActiveWhale={setActiveWhale} />} />
-            <Route path="/markets" element={<Markets />} />
-            <Route path="/ai" element={<AiSettings />} />
-            <Route path="/watchlist" element={<WatchlistPage />} />
-          </Routes>
-        </main>
+        {/* Left Sidebar Navigation */}
+        <Navbar isOpen={sidebarOpen} setOpen={setSidebarOpen} />
 
-        {/* Floating Dock */}
-        <Dock />
+        {/* Right Content Area */}
+        <div className="flex-1 flex flex-col min-w-0 bg-background dark:bg-[#111316] h-screen overflow-hidden">
+          <TopHeader user={user} setToken={setToken} setSidebarOpen={setSidebarOpen} themeMode={themeMode} setThemeMode={setThemeMode} />
+          
+          <main className="flex-1 overflow-hidden p-6 md:p-8 flex flex-col min-h-0">
+            <Routes>
+              <Route path="/" element={<Terminal />} />
+              <Route path="/markets" element={<Markets />} />
+              <Route path="/ai" element={<AiSettings />} />
+              <Route path="/watchlist" element={<WatchlistPage />} />
+            </Routes>
+          </main>
+        </div>
       </div>
     </Router>
   );

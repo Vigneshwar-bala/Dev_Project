@@ -44,11 +44,11 @@ export default function LogicSummary({
       <div className="flex flex-col gap-3 animate-pulse">
         {SECTION_META.map((s) => (
           <div key={s.key} className="flex gap-3 items-start">
-            <div className="w-6 h-6 rounded-full bg-surface-container-high shrink-0 mt-0.5" />
+            <div className="w-6 h-6 rounded-full bg-surface-container-high dark:bg-[#333538] shrink-0 mt-0.5" />
             <div className="flex-1 space-y-1.5">
-              <div className="h-2.5 bg-surface-container-high rounded w-1/4" />
-              <div className="h-3 bg-surface-container-high rounded w-full" />
-              <div className="h-3 bg-surface-container-high rounded w-3/4" />
+              <div className="h-2.5 bg-surface-container-high dark:bg-[#333538] rounded w-1/4" />
+              <div className="h-3 bg-surface-container-high dark:bg-[#333538] rounded w-full" />
+              <div className="h-3 bg-surface-container-high dark:bg-[#333538] rounded w-3/4" />
             </div>
           </div>
         ))}
@@ -60,8 +60,8 @@ export default function LogicSummary({
   if (!stockBought && !whyBought && !profitMade) {
     return (
       <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
-        <span className="material-symbols-outlined text-on-surface-variant/30 text-4xl">psychology</span>
-        <p className="text-on-surface-variant/50 text-xs uppercase tracking-widest">
+        <span className="material-symbols-outlined text-on-surface-variant/30 dark:text-[#b9cac4]/30 text-4xl">psychology</span>
+        <p className="text-on-surface-variant/50 dark:text-[#b9cac4]/50 text-xs uppercase tracking-widest">
           Select a whale to activate analysis
         </p>
       </div>
@@ -77,16 +77,16 @@ export default function LogicSummary({
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span
-            className="material-symbols-outlined text-primary-fixed"
+            className="material-symbols-outlined text-primary-fixed dark:text-[#00dfc1]"
             style={{ fontSize: '16px' }}
           >
             psychology
           </span>
-          <span className="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant dark:text-[#b9cac4]">
             Whale Intelligence
           </span>
           {whaleName && (
-            <span className="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">
+            <span className="text-[10px] bg-primary/10 dark:bg-[#26fedc]/10 text-primary dark:text-[#26fedc] px-2 py-0.5 rounded-full font-medium">
               {whaleName} · ${ticker}
             </span>
           )}
@@ -99,7 +99,7 @@ export default function LogicSummary({
             </span>
           )}
           {fromCache && (
-            <span className="text-[9px] text-on-surface-variant/40 flex items-center gap-1">
+            <span className="text-[9px] text-on-surface-variant/40 dark:text-[#b9cac4]/40 flex items-center gap-1">
               <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>cached</span>
               Cached
             </span>
@@ -127,7 +127,7 @@ export default function LogicSummary({
               </span>
             </div>
             {/* Content */}
-            <p className="text-[12.5px] text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">
+            <p className="text-[12.5px] text-on-surface-variant dark:text-[#b9cac4] leading-relaxed group-hover:text-on-surface dark:group-hover:text-[#e2e2e6] transition-colors">
               {data[section.key]}
             </p>
             {section.key === 'profitMade' && profitGraph.length > 0 && (

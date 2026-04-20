@@ -64,22 +64,22 @@ export default function SentimentGauge({
   }, [score]);
 
   const c = palette(score);
-  const biasColor = bias === 'Bullish' ? 'text-primary'
-    : bias === 'Bearish' ? 'text-error'
-      : 'text-secondary';
-  const volColor = volatility === 'High' ? 'text-error'
-    : volatility === 'Medium' ? 'text-secondary'
-      : 'text-primary';
+  const biasColor = bias === 'Bullish' ? 'text-primary dark:text-[#26fedc]'
+    : bias === 'Bearish' ? 'text-error dark:text-[#ffb4ab]'
+      : 'text-secondary dark:text-[#ffb59c]';
+  const volColor = volatility === 'High' ? 'text-error dark:text-[#ffb4ab]'
+    : volatility === 'Medium' ? 'text-secondary dark:text-[#ffb59c]'
+      : 'text-primary dark:text-[#26fedc]';
 
   return (
     <div className="flex flex-col items-center w-full mt-4">
 
       {/* ── Header ── */}
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-headline font-light tracking-tight text-primary mb-1">
+        <h1 className="text-2xl font-headline font-light tracking-tight text-primary dark:text-[#26fedc] mb-1">
           Correlation Engine
         </h1>
-        <p className="text-on-surface-variant text-[10px] uppercase tracking-[0.3em]">
+        <p className="text-on-surface-variant dark:text-[#b9cac4] text-[10px] uppercase tracking-[0.3em]">
           Institutional Sentiment Index
         </p>
       </div>
@@ -173,17 +173,17 @@ export default function SentimentGauge({
 
       {/* ── Metrics row ── */}
       <div className="grid grid-cols-3 w-full mt-4 gap-2">
-        <div className="text-center py-2 border-r border-outline-variant/10">
-          <p className="text-[9px] text-on-surface-variant uppercase mb-1 tracking-widest">Market Bias</p>
+        <div className="text-center py-2 border-r border-outline-variant/10 dark:border-[#3a4a46]/50">
+          <p className="text-[9px] text-on-surface-variant dark:text-[#b9cac4] uppercase mb-1 tracking-widest">Market Bias</p>
           <p className={`text-sm font-headline font-bold ${biasColor}`}>{bias}</p>
         </div>
-        <div className="text-center py-2 border-r border-outline-variant/10">
-          <p className="text-[9px] text-on-surface-variant uppercase mb-1 tracking-widest">Volatility</p>
+        <div className="text-center py-2 border-r border-outline-variant/10 dark:border-[#3a4a46]/50">
+          <p className="text-[9px] text-on-surface-variant dark:text-[#b9cac4] uppercase mb-1 tracking-widest">Volatility</p>
           <p className={`text-sm font-headline font-bold ${volColor}`}>{volatility}</p>
         </div>
         <div className="text-center py-2">
-          <p className="text-[9px] text-on-surface-variant uppercase mb-1 tracking-widest">Liquidity</p>
-          <p className="text-sm font-headline font-bold text-primary">{liquidity}</p>
+          <p className="text-[9px] text-on-surface-variant dark:text-[#b9cac4] uppercase mb-1 tracking-widest">Liquidity</p>
+          <p className="text-sm font-headline font-bold text-primary dark:text-[#26fedc]">{liquidity}</p>
         </div>
       </div>
     </div>

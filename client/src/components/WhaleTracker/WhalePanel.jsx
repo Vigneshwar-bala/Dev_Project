@@ -57,10 +57,10 @@ export default function WhalePanel({ activeWhale, onSelectWhale }) {
   };
 
   return (
-    <aside className="w-1/5 flex flex-col gap-3 overflow-y-auto no-scrollbar">
+    <aside className="w-full h-full flex flex-col gap-3 overflow-y-auto no-scrollbar pb-2">
       {/* Panel Header */}
       <div className="flex items-center justify-between px-2 mb-1 shrink-0">
-        <h2 className="font-headline text-xs font-bold tracking-widest text-primary-fixed uppercase">
+        <h2 className="font-headline text-xs font-bold tracking-widest text-primary-fixed dark:text-[#00dfc1] uppercase">
           Whale Tracker
         </h2>
         <span
@@ -87,11 +87,11 @@ export default function WhalePanel({ activeWhale, onSelectWhale }) {
               setCustomInvestor(e.target.value);
               setCustomTicker(''); // reset ticker when investor changes
             }}
-            className="w-full bg-surface-container/50 border border-outline-variant/10 rounded-lg px-3 py-1.5 text-[11px] text-on-surface focus:outline-none focus:border-secondary/50 transition-colors"
+            className="w-full bg-surface-container/50 dark:bg-[#303235]/50 border border-outline-variant/10 dark:border-[#3a4a46]/50 rounded-lg px-3 py-1.5 text-[11px] text-on-surface dark:text-[#e2e2e6] focus:outline-none focus:border-secondary/50 dark:focus:border-[#8e2c01]/50 transition-colors"
           >
             <option value="" disabled hidden>Select an Investor...</option>
             {INVESTOR_SUGGESTIONS.map(inv => (
-              <option key={inv} value={inv} className="bg-surface-container-high">{inv}</option>
+              <option key={inv} value={inv} className="bg-surface-container-high dark:bg-[#333538]">{inv}</option>
             ))}
           </select>
 
@@ -99,11 +99,11 @@ export default function WhalePanel({ activeWhale, onSelectWhale }) {
             value={customTicker}
             onChange={(e) => setCustomTicker(e.target.value.toUpperCase())}
             disabled={!customInvestor}
-            className="w-full bg-surface-container/50 border border-outline-variant/10 rounded-lg px-3 py-1.5 text-[11px] font-mono text-on-surface uppercase focus:outline-none focus:border-secondary/50 transition-colors disabled:opacity-50"
+            className="w-full bg-surface-container/50 dark:bg-[#303235]/50 border border-outline-variant/10 dark:border-[#3a4a46]/50 rounded-lg px-3 py-1.5 text-[11px] font-mono text-on-surface dark:text-[#e2e2e6] uppercase focus:outline-none focus:border-secondary/50 dark:focus:border-[#8e2c01]/50 transition-colors disabled:opacity-50"
           >
             <option value="" disabled hidden>Select Target Asset...</option>
             {tickerOptions.map(tic => (
-              <option key={tic} value={tic} className="bg-surface-container-high">{tic}</option>
+              <option key={tic} value={tic} className="bg-surface-container-high dark:bg-[#333538]">{tic}</option>
             ))}
           </select>
 
